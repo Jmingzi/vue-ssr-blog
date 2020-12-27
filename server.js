@@ -7,6 +7,8 @@ const resolve = file => path.resolve(__dirname, file)
 const favicon = require('serve-favicon')
 const LRU = require('lru-cache')
 const { createBundleRenderer } = require('vue-server-renderer')
+const { setConfig, uploadBase64 } = require('github-image')
+const dayjs = require('dayjs')
 const log4js = require('log4js')
 const AV = require('leancloud-storage')
 const appId = 'iYzWnL2H72jtQgNQPXUvjFqU-gzGzoHsz'
@@ -120,6 +122,20 @@ function render(req, res) {
     // }
   })
 }
+
+// -------------------------------------------------------
+// Api for upload github images
+// -------------------------------------------------------
+
+app.post('/upload', async (req, res) => {
+  setConfig('ea4844bb6b92543b1d806d5c9788062269f783e7', 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
+  uploadBase64(req.body.base64, 'the_parsed_crop_image.png', req.body.commit || 'unknow_article_title').then(result => {
+    res.status(200).send({ success: true, data: result })
+  }).catch(err => {
+    res.status(200).send({ success: false, msg: err.message })
+  })
+})
+
 
 // -------------------------------------------------------
 // Api for login and sitemap

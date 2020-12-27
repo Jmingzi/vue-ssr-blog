@@ -80,10 +80,8 @@
   import { debounce } from 'underscore'
   import { Button, Checkbox, Select, Option } from 'element-ui'
   import { mapActions, mapState } from 'vuex'
-  // import { uploadImg } from '../api'
-  import dayjs from 'dayjs'
+  import { uploadImg } from '../api'
   import hljs from 'highlight.js'
-  const { setConfig, uploadBase64 } = require('github-image')
   const ArticleContent = () => import('../components/ArticleContent.vue')
 
   export default {
@@ -301,10 +299,16 @@
       },
 
       async upload(title, base64) {
-        setConfig('ea4844bb6b92543b1d806d5c9788062269f783e7', 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
         this.showProgress = true
         this.uploadProgress = 50
-        const uploadRes = await uploadBase64(base64, 'the_parsed_crop_image.png', title || 'unknow_article_title')
+        const uploadRes = await uploadImg({
+          commit: title,
+          base64: base64.split(';')[1]
+          // cb: (num) => {
+          //   this.showProgress = true
+          //   this.uploadProgress = num
+          // }
+        })
         this.uploadProgress = 0
         this.showProgress = false
         const str = `![${uploadRes.sha}](${uploadRes.download_url})`
