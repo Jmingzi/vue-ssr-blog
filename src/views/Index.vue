@@ -2,7 +2,7 @@
   <div class="index__wrap">
     <div class="px-padding-t70 px-margin-b50">
       <h1 class="index__name"><a href="#" style="color: #333">Jmingzi</a></h1>
-      <p class="color-c999 px-margin-t10">国服最强 AD</p>
+      <p class="color-c999 px-margin-t10">关关雎鸠，在河之洲。</p>
     </div>
     <div class="index__list">
       <div

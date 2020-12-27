@@ -303,7 +303,7 @@
         this.uploadProgress = 50
         const uploadRes = await uploadImg({
           commit: title,
-          // base64: base64.split(';')[1].split(',')[1]
+          // base64: base64.split(';')[1]
           base64: base64.split(',')[1]
           // cb: (num) => {
           //   this.showProgress = true
