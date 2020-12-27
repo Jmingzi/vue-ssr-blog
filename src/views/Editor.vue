@@ -303,7 +303,8 @@
         this.uploadProgress = 50
         const uploadRes = await uploadImg({
           commit: title,
-          base64: base64.split(';')[1].split(',')[1]
+          // base64: base64.split(';')[1].split(',')[1]
+          base64: base64.split(',')[1]
           // cb: (num) => {
           //   this.showProgress = true
           //   this.uploadProgress = num
@@ -311,7 +312,7 @@
         })
         this.uploadProgress = 0
         this.showProgress = false
-        const str = `![${uploadRes.sha}](${uploadRes.download_url})`
+        const str = `![${uploadRes.data.sha}](${uploadRes.data.download_url})`
         this.insertEditorString(str, str.length)
         // let name = title || 'jmingzi'
         // uploadImg({
