@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development node --inspect ./bin/www",
     "start": "pm2 start bin/start.js",

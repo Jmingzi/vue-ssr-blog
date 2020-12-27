@@ -130,7 +130,7 @@ function render(req, res) {
 // -------------------------------------------------------
 
 app.post('/upload', async (req, res) => {
-  githubImage.setConfig('0b96f4cf0bf065296d0030199b126c5c80488def', 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
+  githubImage.setConfig('916e6cfa39c3613b2b37e4a1cc307e23001a82a5', 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
   githubImage.uploadBase64(req.body.base64, 'the_parsed_crop_image.png', req.body.commit || 'unknow_article_title').then(result => {
     res.status(200).send({ success: true, data: result })
   }).catch(err => {
