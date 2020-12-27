@@ -80,8 +80,10 @@
   import { debounce } from 'underscore'
   import { Button, Checkbox, Select, Option } from 'element-ui'
   import { mapActions, mapState } from 'vuex'
-  import { uploadImg } from '../api'
+  // import { uploadImg } from '../api'
+  import dayjs from 'dayjs'
   import hljs from 'highlight.js'
+  const { setConfig, uploadBase64 } = require('github-image')
   const ArticleContent = () => import('../components/ArticleContent.vue')
 
   export default {
@@ -298,21 +300,29 @@
         }
       },
 
-      upload(title, base64) {
-        let name = title || 'jmingzi'
-        uploadImg({
-          name,
-          base64: base64.split(';')[1],
-          cb: (num) => {
-            this.showProgress = true
-            this.uploadProgress = num
-          }
-        }).then(res => {
-          this.uploadProgress = 0
-          this.showProgress = false
-          const str = `![${res.id}](${res.attributes.url})`
-          this.insertEditorString(str, str.length)
-        })
+      async upload(title, base64) {
+        setConfig('ea4844bb6b92543b1d806d5c9788062269f783e7', 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
+        this.showProgress = true
+        this.uploadProgress = 50
+        const uploadRes = await uploadBase64(base64, 'the_parsed_crop_image.png', title || 'unknow_article_title')
+        this.uploadProgress = 0
+        this.showProgress = false
+        const str = `![${uploadRes.sha}](${uploadRes.download_url})`
+        this.insertEditorString(str, str.length)
+        // let name = title || 'jmingzi'
+        // uploadImg({
+        //   name,
+        //   base64: base64.split(';')[1],
+        //   cb: (num) => {
+        //     this.showProgress = true
+        //     this.uploadProgress = num
+        //   }
+        // }).then(res => {
+        //   this.uploadProgress = 0
+        //   this.showProgress = false
+        //   const str = `![${res.id}](${res.attributes.url})`
+        //   this.insertEditorString(str, str.length)
+        // })
       }
     }
   }
