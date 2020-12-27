@@ -7,7 +7,7 @@ const resolve = file => path.resolve(__dirname, file)
 const favicon = require('serve-favicon')
 const LRU = require('lru-cache')
 const { createBundleRenderer } = require('vue-server-renderer')
-const { setConfig, uploadBase64 } = require('github-image')
+const githubImage = require('github-image')
 const dayjs = require('dayjs')
 const log4js = require('log4js')
 const AV = require('leancloud-storage')
@@ -74,6 +74,8 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 : 0
 })
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(compression({ threshold: 0 }))
 app.use(favicon('./public/logo.jpg'))
 app.use('/dist', serve('./dist', true))
@@ -128,8 +130,8 @@ function render(req, res) {
 // -------------------------------------------------------
 
 app.post('/upload', async (req, res) => {
-  setConfig('ea4844bb6b92543b1d806d5c9788062269f783e7', 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
-  uploadBase64(req.body.base64, 'the_parsed_crop_image.png', req.body.commit || 'unknow_article_title').then(result => {
+  githubImage.setConfig('0ee2e3c90f716650b319bbd4b46c790a3db79881', 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
+  githubImage.uploadBase64(req.body.base64, 'the_parsed_crop_image.png', req.body.commit || 'unknow_article_title').then(result => {
     res.status(200).send({ success: true, data: result })
   }).catch(err => {
     res.status(200).send({ success: false, msg: err.message })

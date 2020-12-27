@@ -1,4 +1,13 @@
 import db from './db.js'
+import Http from 'esc-ui/lib/http'
+
+const http = new Http({
+  baseUrl: '',
+  urlMap: {
+    upload: '/upload'
+  },
+  contentType: 'application/json'
+})
 
 export default function () {
   console.log('http: client api')
@@ -21,11 +30,12 @@ export default function () {
   }
 
   db.uploadImg = data => {
-    return new db.AV.File(data.name, data).save({
-      onprogress(e) {
-        data.cb(e.percent)
-      }
-    })
+    // return new db.AV.File(data.name, data).save({
+    //   onprogress(e) {
+    //     data.cb(e.percent)
+    //   }
+    // })
+    return http.post('upload', data)
   }
 
   db.totalCount = () => {
