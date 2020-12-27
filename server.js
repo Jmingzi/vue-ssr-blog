@@ -130,6 +130,7 @@ function render(req, res) {
 // -------------------------------------------------------
 
 app.post('/upload', async (req, res) => {
+  // Github 会扫描公共仓库，找到的 token 会被删掉
   githubImage.setConfig('8650992d13594%%f6992f820d04aa0a7471a48377a'.replace('%%', ''), 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
   githubImage.uploadBase64(req.body.base64, 'the_parsed_crop_image.png', req.body.commit || 'unknow_article_title').then(result => {
     res.status(200).send({ success: true, data: result })
