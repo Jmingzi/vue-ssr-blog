@@ -10,6 +10,7 @@ const { createBundleRenderer } = require('vue-server-renderer')
 const githubImage = require('github-image')
 const dayjs = require('dayjs')
 const log4js = require('log4js')
+const bodyParser = require('body-parser')
 const AV = require('leancloud-storage')
 const appId = 'iYzWnL2H72jtQgNQPXUvjFqU-gzGzoHsz'
 const appKey = 'OR3zEynwWJ7f8bk95AdiGFzJ'
@@ -74,8 +75,10 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 : 0
 })
 
-app.use(express.json({ limit: '20m' }))
-app.use(express.urlencoded({ extended: true, limit: '20m' }))
+// app.use(express.json({ limit: '20m' }))
+// app.use(express.urlencoded({ extended: true, limit: '20m' }))
+app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
 app.use(compression({ threshold: 0 }))
 app.use(favicon('./public/logo.jpg'))
 app.use('/dist', serve('./dist', true))
