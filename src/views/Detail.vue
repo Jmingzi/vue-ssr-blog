@@ -15,7 +15,7 @@
       <div class="detail__content-head">
         <span
           class="fr cursor-p"
-          v-if="currentUser"
+          v-if="iaAdmin"
           @click="toEdit"
         >
           编辑
@@ -64,7 +64,7 @@
 
 <script>
   import AV from 'leancloud-storage'
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import { formatDate } from '../assets/date'
   import { handleGithub } from '../assets/util'
   import VueQrcode from '@chenfengyuan/vue-qrcode'
@@ -116,6 +116,7 @@
     computed: {
       ...mapState('article', ['detail']),
       ...mapState(['currentUser']),
+      ...mapGetters(['iaAdmin']),
 
       tag() {
         return this.detail ? this.detail.tag.split('、') : []

@@ -54,7 +54,7 @@
       <div class="fr color-c999">
         <span class="ib-middle">{{ item.createdAt | format }}</span>
         <span
-          v-if="currentUser"
+          v-if="isAdmin"
           class="color-error ib-middle px-margin-l10 cursor-p"
           @click="del(item, i)"
         >
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
   import { ago } from '../assets/date'
   import { summary } from '../assets/util'
 
@@ -111,6 +111,7 @@
 
     computed: {
       ...mapState(['currentUser']),
+      ...mapGetters(['isAdmin']),
 
       isIndex() {
         return this.from === 'index'
@@ -118,7 +119,7 @@
     },
 
     created () {
-      console.log('currentUser: ', this.currentUser)
+      console.log('isAdmin: ', this.isAdmin)
     },
 
     methods: {

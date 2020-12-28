@@ -20,6 +20,10 @@ export function createStore() {
           item = state.article.list[0].updatedAt
         }
         return format(item, 'yyyy年MM月dd日 hh:mm')
+      },
+
+      isAdmin(state) {
+        return state.currentUser && /jmingzi/i.test(state.currentUser.username)
       }
     },
 
@@ -36,7 +40,7 @@ export function createStore() {
       },
       CURRENT_USER: ({ commit }) => {
         return fetch('currentUser').then(user => {
-          commit('SET_CURRENT_USER', user)
+          commit('SET_CURRENT_USER', user.toJSON())
         })
       }
     },
