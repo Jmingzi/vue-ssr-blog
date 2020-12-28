@@ -36,7 +36,7 @@ export function createStore() {
       },
       CURRENT_USER: ({ commit }) => {
         return fetch('currentUser').then(user => {
-          commit('SET_CURRENT_USER', !!user)
+          commit('SET_CURRENT_USER', user)
         })
       }
     },
