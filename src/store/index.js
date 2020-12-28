@@ -23,7 +23,7 @@ export function createStore() {
       },
 
       isAdmin(state) {
-        return state.currentUser && /jmingzi/i.test(state.currentUser.username)
+        return state.currentUser && /^jmingzi$/i.test(state.currentUser.username)
       }
     },
 
@@ -40,7 +40,7 @@ export function createStore() {
       },
       CURRENT_USER: ({ commit }) => {
         return fetch('currentUser').then(user => {
-          commit('SET_CURRENT_USER', user.toJSON())
+          commit('SET_CURRENT_USER', user ? user.toJSON() : null)
         })
       }
     },
