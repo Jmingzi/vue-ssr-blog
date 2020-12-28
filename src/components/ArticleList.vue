@@ -117,10 +117,8 @@
       }
     },
 
-    watch: {
-      currentUser (val) {
-        console.log('currentUser', val)
-      }
+    created () {
+      console.log('currentUser', val)
     },
 
     methods: {
