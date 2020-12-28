@@ -75,8 +75,6 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 : 0
 })
 
-// app.use(express.json({ limit: '20m' }))
-// app.use(express.urlencoded({ extended: true, limit: '20m' }))
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }))
 app.use(compression({ threshold: 0 }))

@@ -117,6 +117,12 @@
       }
     },
 
+    watch: {
+      currentUser (val) {
+        console.log('currentUser', val)
+      }
+    },
+
     methods: {
       ...mapActions('article', ['DEL_ARTICLE']),
 
