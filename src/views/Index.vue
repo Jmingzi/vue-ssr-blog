@@ -52,7 +52,7 @@
 
     asyncData({ store }) {
       return store.dispatch('article/FETCH_LIST', {
-        limit: 5,
+        limit: 100,
         field: ['title', 'tag', 'isOuterLink', 'type', 'inputCompiled'],
         condition: [
           {
@@ -104,7 +104,8 @@
   .index__name
     font-weight: bold
     font-size: 40px
-    font-family: interface,-webkit-pictograph,serif
+    // font-family: interface,-webkit-pictograph,serif
+    font-family: serif
 
   .index__list
     .seo-block

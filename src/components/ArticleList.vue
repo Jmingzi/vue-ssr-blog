@@ -32,7 +32,7 @@
       </div>
       <p v-if="!item.isOuterLink" class="px-font-14 color-c666">{{ item.inputCompiled | summary }}</p>
     </li>
-    <ul class="seo-block">
+    <ul v-if="false" class="seo-block">
       <li
         v-for="(item, i) in list.slice(3, 5)"
         :key="i"

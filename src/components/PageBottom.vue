@@ -41,7 +41,7 @@
           </a>
         </li>
       </template>
-      <li v-else class="ib-middle px-font-14">
+      <li v-else class="ib-middle px-font-14 dn">
         <a class="" href="javascript:" @click="handleGithub">Github 登录</a>
       </li>
       <template v-if="false">
