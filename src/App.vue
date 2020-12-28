@@ -39,11 +39,11 @@
       background-color: #f7f8f9
 
   .w700
-    width: 700px
+    width: 850px
 
   @media (max-width 700px)
     .w700
-      width: 90%;
+      width: 80%;
 
   .link-a
     position relative

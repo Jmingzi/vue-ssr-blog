@@ -1,7 +1,7 @@
 .markdown-body {
   /*font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
   /*font-size:16px;*/
-  line-height:1.5;
+  line-height:1.75;
   word-wrap:break-word
 }
 .markdown-body::before {
@@ -37,7 +37,7 @@
 }
 .markdown-body p, .markdown-body blockquote, .markdown-body ul, .markdown-body ol, .markdown-body dl, .markdown-body table, .markdown-body pre {
   margin-top:0;
-  margin-bottom:16px
+  margin-bottom:22px
 }
 .markdown-body hr {
   height:.25em;

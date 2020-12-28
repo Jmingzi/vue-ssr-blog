@@ -22,8 +22,8 @@
   @import "../assets/markdown.css"
 
   .editor__style
-    font-size: 14px
-    padding: 15px
+    font-size: 16px
+    padding: 20px
 
     blockquote
       margin-left: 0
@@ -55,7 +55,7 @@
       background-color: #f6f8fa
       border-radius: 3px
       font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace !important
-      font-size: 12px
+      font-size: 14px
 
     code
       font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace !important
