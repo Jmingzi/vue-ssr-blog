@@ -118,7 +118,7 @@
     },
 
     created () {
-      console.log('currentUser', val)
+      console.log('currentUser', this.currentUser)
     },
 
     methods: {
