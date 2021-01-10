@@ -15,7 +15,7 @@
       <div class="detail__content-head">
         <span
           class="fr cursor-p"
-          v-if="iaAdmin"
+          v-if="isAdmin"
           @click="toEdit"
         >
           编辑
@@ -116,7 +116,7 @@
     computed: {
       ...mapState('article', ['detail']),
       ...mapState(['currentUser']),
-      ...mapGetters(['iaAdmin']),
+      ...mapGetters(['isAdmin']),
 
       tag() {
         return this.detail ? this.detail.tag.split('、') : []
