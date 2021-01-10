@@ -23,6 +23,7 @@ export function createStore() {
       },
 
       isAdmin(state) {
+        console.log(state.currentUser)
         return state.currentUser && /^jmingzi$/i.test(state.currentUser.username)
       }
     },
