@@ -1,5 +1,5 @@
 <template>
-  <div class="article-content__wrap markdown-body editor__style" v-html="content"/>
+  <div class="article-content__wrap markdown-body editor__style" v-html="content.replace(/a href=/g, 'a target=_blank href=')"/>
 </template>
 
 <script>
