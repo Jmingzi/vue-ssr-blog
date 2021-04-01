@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const fs = require('fs')
+const fs = require('fs-extra')
 const axios = require('axios')
 const compression = require('compression')
 const resolve = file => path.resolve(__dirname, file)
@@ -260,6 +260,26 @@ app.get('/oauth/redirect', async (req, res) => {
       }
     }
   }
+})
+
+// -------------------------------------------------------
+// Api for scripttable
+// -------------------------------------------------------
+app.post('/scripttable/save', async (req, res) => {
+  const { fileName, data } = req.body
+  const workdspace = '/home/statics/scripttable'
+  let msg
+  const file = path.join(workdspace, fileName)
+  if (!fs.pathExistsSync(file)) {
+    msg = '文件不存在 ' + file
+  } else {
+    const json = await fs.readJson(file)
+    Object.keys(data).forEach(k => {
+      json[k] = data[k]
+    })
+    await fs.writeJson(file, json)
+  }
+  res.status(200).send({ success: !msg, msg })
 })
 
 app.get('*', (req, res) => {
