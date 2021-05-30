@@ -4,6 +4,7 @@
 - nginx 安装 https://www.huaweicloud.com/articles/e8ce61e31aba844b31a0d546892c57bb.html
 - nodejs 安装 https://npm.taobao.org/mirrors/node/v14.16.1/
 - yarn 安装 https://yarn.bootcss.com/docs/install/#centos-stable
+- github webhooks ip 地址修改
 
 ### 资源
 
@@ -13,6 +14,7 @@
 - upload https://github.com/Jmingzi/upload
 - vue-ssr-blog https://github.com/Jmingzi/vue-ssr-blog.git
 - witness https://github.com/Jmingzi/witness.git
+- meta.html
 
 ### 服务列表
 
