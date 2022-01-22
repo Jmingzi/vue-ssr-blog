@@ -290,12 +290,12 @@ app.get('/api/blog/count', async (req, res) => {
   const ua = req.headers['user-agent']
   // console.log(req.headers)
   let pv = 0
-  const pathname = referer && referer.substr(referer.indexOf(host) + host.length)
+  const pathname = referer && (new URL(referer)).pathname
   if (ip.split('.').length === 4 && pathname) {
     console.log(`访问日志：${ip} / ${host} / ${pathname}`)
     const insert = () => {
       // 插入表
-      const Count = new AV.Object.extend('Count')
+      const Count = AV.Object.extend('Count')
       const count = new Count()
       count.set('ip', ip)
       count.set('host', host)
