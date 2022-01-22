@@ -288,11 +288,11 @@ app.get('/api/blog/count', async (req, res) => {
   const host = req.headers.host
   const referer = req.headers.referer
   const ua = req.headers['user-agent']
-  // console.log(req.headers)
+  console.log(req.headers['x-forwarded-for'])
   let pv = 0
   const pathname = referer && (new URL(referer)).pathname
   if (ip.split('.').length === 4 && pathname) {
-    console.log(`访问日志：${ip} / ${host} / ${pathname}`)
+    console.log(`访问日志：ip ${ip}, host ${host}, path ${pathname}`)
     const insert = () => {
       // 插入表
       const Count = AV.Object.extend('Count')
@@ -312,12 +312,12 @@ app.get('/api/blog/count', async (req, res) => {
     }
     insert()
     const query = new AV.Query('Count')
-    query.equalTo('ip', ip)
+    // query.equalTo('ip', ip)
     query.equalTo('host', host)
     query.equalTo('path', pathname)
     pv = await query.count()
   } else {
-    console.log('未知 ip 或页面 访问，不计数')
+    console.log(`未知 ip 或页面 访问，不计数 ip: ${ip} path ${pathname}`)
   }
   res.jsonp({ pv })
 })
