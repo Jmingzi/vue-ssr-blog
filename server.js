@@ -319,8 +319,7 @@ app.get('/out/blog/count', async (req, res) => {
   } else {
     console.log('未知 ip 或页面 访问，不计数')
   }
-  console.log('----', result)
-  res.jsonp(result)
+  res.jsonp({ result })
 })
 
 app.get('*', (req, res) => {
