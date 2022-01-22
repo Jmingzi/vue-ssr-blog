@@ -283,7 +283,7 @@ app.post('/scripttable/save', async (req, res) => {
 // -------------------------------------------------------
 // Api for count read num
 // -------------------------------------------------------
-app.get('/out/blog/count', async (req, res) => {
+app.get('/api/blog/count', async (req, res) => {
   const ip = req.ip.split(':').pop()
   const host = req.headers.host
   const referer = req.headers.referer
