@@ -284,11 +284,10 @@ app.post('/scripttable/save', async (req, res) => {
 // Api for count read num
 // -------------------------------------------------------
 app.get('/api/blog/count', async (req, res) => {
-  const ip = req.ip.split(':').pop()
+  const ip = req.headers['x-forwarded-for'] || req.ip.split(':').pop()
   const host = req.headers.host
   const referer = req.headers.referer
   const ua = req.headers['user-agent']
-  console.log(req.headers['x-forwarded-for'])
   let pv = 0
   const pathname = referer && (new URL(referer)).pathname
   if (ip.split('.').length === 4 && pathname) {
