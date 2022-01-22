@@ -129,7 +129,6 @@ function render(req, res) {
 // -------------------------------------------------------
 // Api for upload github images
 // -------------------------------------------------------
-
 app.post('/upload', async (req, res) => {
   // Github 会扫描公共仓库，找到的 token 会被删掉
   githubImage.setConfig('8650992d13594%%f6992f820d04aa0a7471a48377a'.replace('%%', ''), 'jmingzi/blog-image', dayjs().format('YYYY-MM-DD'))
@@ -139,7 +138,6 @@ app.post('/upload', async (req, res) => {
     res.status(200).send({ success: false, msg: err.message })
   })
 })
-
 
 // -------------------------------------------------------
 // Api for login and sitemap
@@ -280,6 +278,48 @@ app.post('/scripttable/save', async (req, res) => {
     await fs.writeJson(file, json)
   }
   res.status(200).send({ success: !msg, msg })
+})
+
+// -------------------------------------------------------
+// Api for count read num
+// -------------------------------------------------------
+app.get('/out/blog/count', async (req, res) => {
+  const ip = req.ip.split(':').pop()
+  const host = req.headers.host
+  const pageUrl = req.headers['page-url']
+  const ua = req.headers['user-agent']
+  console.log(req.headers)
+  let result
+  if (ip.split('.').length === 4 && pageUrl) {
+    const pathname = pageUrl.substr(pageUrl.indexOf(host) + host.length)
+    console.log(`访问日志：${ip} / ${host} / ${pathname}`)
+    const insert = () => {
+      // 插入表
+      const Count = new AV.Object.extend('Count')
+      const count = new Count()
+      count.set('ip', ip)
+      count.set('host', host)
+      count.set('path', pathname)
+      const system = ua.match(/\(.*?\)/)
+      if (system) {
+        count.set('system', system[0].split(';')[1].trim())
+      }
+      const browser = ua.split(') ').pop()
+      if (browser) {
+        count.set('browser', browser.trim())
+      }
+      return count.save()
+    }
+    const query = new AV.Query('Count')
+    query.equalTo('ip', ip)
+    query.equalTo('host', host)
+    query.equalTo('path', pathname)
+    result = await query.count()
+    insert()
+  } else {
+    console.log('未知 ip 或页面 访问，不计数')
+  }
+  res.status(200).jsonp(result)
 })
 
 app.get('*', (req, res) => {
