@@ -286,12 +286,12 @@ app.post('/scripttable/save', async (req, res) => {
 app.get('/out/blog/count', async (req, res) => {
   const ip = req.ip.split(':').pop()
   const host = req.headers.host
-  const pageUrl = req.headers['page-url']
+  const referer = req.headers.referer
   const ua = req.headers['user-agent']
-  console.log(req.headers)
-  let result
-  if (ip.split('.').length === 4 && pageUrl) {
-    const pathname = pageUrl.substr(pageUrl.indexOf(host) + host.length)
+  // console.log(req.headers)
+  let pv = 0
+  const pathname = referer && referer.substr(referer.indexOf(host) + host.length)
+  if (ip.split('.').length === 4 && pathname) {
     console.log(`访问日志：${ip} / ${host} / ${pathname}`)
     const insert = () => {
       // 插入表
@@ -310,16 +310,16 @@ app.get('/out/blog/count', async (req, res) => {
       }
       return count.save()
     }
+    insert()
     const query = new AV.Query('Count')
     query.equalTo('ip', ip)
     query.equalTo('host', host)
     query.equalTo('path', pathname)
-    result = await query.count()
-    insert()
+    pv = await query.count()
   } else {
     console.log('未知 ip 或页面 访问，不计数')
   }
-  res.jsonp({ result })
+  res.jsonp({ pv })
 })
 
 app.get('*', (req, res) => {
