@@ -61,7 +61,7 @@
     "memory-fs": "^0.4.1",
     "my-local-ip": "^1.0.0",
     "optimize-css-assets-webpack-plugin": "^4.0.1",
-    "pm2": "^2.10.3",
+    "pm2": "^5.2.2",
     "rimraf": "^2.6.2",
     "style-loader": "^0.21.0",
     "stylus": "^0.54.5",
