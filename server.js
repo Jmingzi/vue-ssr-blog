@@ -269,7 +269,8 @@ app.post('/scripttable/save', async (req, res) => {
   let msg
   const file = path.join(workdspace, fileName)
   if (!fs.pathExistsSync(file)) {
-    msg = '文件不存在 ' + file
+    // msg = '文件不存在 ' + file
+    await fs.outputJson(file, data)
   } else {
     const json = await fs.readJson(file)
     Object.keys(data).forEach(k => {
